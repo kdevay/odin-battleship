@@ -7,11 +7,7 @@ function ship(length){
         isSunk() { return this.length - this.hitCount > 0 ? false : true }
     }
 }
-module.exports = ship;
- 
-/*
 
-*/
 // 2. Creates and populates board with ships, and tracks/displays missed attacks
 const gameBoard = {
     ships: [ship(5), ship(4), ship(4), ship(3), ship(3), ship(3), ship(2), ship(2), ship(2), ship(2)],
@@ -20,7 +16,7 @@ const gameBoard = {
         for (let i = 0; i < 10; i++) {
             let temp = [];
             for (let j = 0; j < 10; j++) {
-                temp.push({isFilled: false, ship: null;});
+                temp.push({isFilled: false, ship: null});
         }
         this.tiles.push(temp);
         }
@@ -60,4 +56,4 @@ const gameBoard = {
     }
 }
 
-module.exports = gameBoard;
+export {ship, gameBoard};
