@@ -3,57 +3,83 @@ function ship(length){
     return {
         length: length,
         hitCount: 0,
+        coordStart: null;
         hit() { return this.hitCount++ },
         isSunk() { return this.length - this.hitCount > 0 ? false : true }
     }
 }
 
-// 2. Creates and populates board with ships, and tracks/displays missed attacks
-const gameBoard = {
-    ships: [ship(5), ship(4), ship(4), ship(3), ship(3), ship(3), ship(2), ship(2), ship(2), ship(2)],
-    tiles: [],
-    createTiles() {
-        for (let i = 0; i < 10; i++) {
-            let temp = [];
-            for (let j = 0; j < 10; j++) {
-                temp.push({isFilled: false, ship: null});
+function createTiles() {
+    let tiles = [];
+    for (let i = 0; i < 10; i++) {
+        let temp = [];
+        for (let j = 0; j < 10; j++) {
+            temp.push({ isFilled: false, ship: null });
         }
-        this.tiles.push(temp);
-        }
-        return;
-    },
-    isFilled(row, col){
-        return tile[row][col].isFilled ? true : false;
-    },
-    randomDirection(){
-        return (Math.random() * (11 - 0) + 0) <= 5 ? 'h' : 'v';
-    },
-    randomCoordinates(length) {
-        let a = Math.round(Math.random() * (11 - 0) + 0);
-        let b =  Math.round(Math.random() * (11 - 0) + 0);
-        let arr = []
-        if (this.isFilled(a, b)){
-            return this.randomCoordinates();
-        }
-        let dir = this.randomDirection();
-        for (i = 0; i < length; i++){
-            dir === 'h' ? arr.push(a, b + i) : arr.push(a + i, b);
-        }
-        for (i = 0; i < length * 2; i + 2){
-            if (this.isFilled(arr[i], arr[i + 1])){ return this.randomCoordinates()}
-        }
-        return arr;
-    },
-    populate() {
-        this.ships.forEach( ship => {
-            let temp = this.randomCoordinates(ship.length);
-            for (i = 0; i < temp.length; i + 2){
-                this.tiles[temp[i], temp[i + 1]].isFilled = true;
-                this.tiles[temp[i], temp[i + 1]].ship = ship;
-            }
-            
-        })
+        tiles.push(temp);
     }
+    return tiles;
 }
+
+// Helpers for #2
+const DIR = 'h'//placeholders for ui
+
+// Function that checks if all coordinates in a range are free
+function checkCoordinates(a, b, dir, tiles, length) {
+    let min = dir === 'h' ? b : a
+    let max = min + length - 1;
+    if (max > 9) { return false } // Keep coordinates within grid
+    let temp = [];
+    while (min <= max) {
+        if (tiles[a][b].isFilled === true) { return false }
+        temp.push([a, b])
+        dir === 'h' ? b++ : a++;
+        min++;
+    }
+    return { pos: temp, dir: dir };
+}
+// Function that randomizes ship positions for computer
+function getRandomPosition(arr, length) {
+    let a = Math.floor(Math.random() * 9);
+    let b = Math.floor(Math.random() * 9);
+    let dir = (Math.random() * (10 - 1) + 1) <= 5 ? 'h' : 'v';
+    // Check if path is clear
+    let coords = checkCoordinates(a, b, dir, arr, length);
+    // If there is a ship in the path, recurse
+    if (coords === false) { getRandomPosition(arr, length) }
+    return coords;
+}
+
+// Function that gets coordinates from ui
+function getCoordinates(user, tiles, ship, dir) { //Relies on user input
+    if (user === 'computer'){ 
+        // If user is computer, randomize ship placement
+        return getRandomPosition(tiles, ship.length); 
+    }
+    return 'To do';
+    // else get position, direction, from user
+    // let a = 
+    // let b = 
+    // return  checkCoordinates(a, b, dir, tiles, length);
+}
+
+
+// 2. Creates and populates board with ships, and tracks/displays missed attacks
+class gameBoard {
+    constructor(user) {
+        this.ships = [ship(5), ship(4), ship(4), ship(3), ship(3), ship(3), ship(2), ship(2), ship(2), ship(2)];
+        this.tiles = createTiles();
+        this.user = user;
+        this.populate = function (ship) {
+            let coordinates = getCoordinates(user, tiles, ship);
+            let positions = coordinates.pos;
+            positions.forEach(pos => {
+                this.tile[pos[0]][pos[1]].isFilled = true;
+            })
+        };
+    };
+}
+
+
 
 export {ship, gameBoard};

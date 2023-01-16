@@ -20,25 +20,27 @@ test('handles attacks', () => {
 });
 
 test('creates blank 8x8 game board', () => {
-    const board = gameBoard.createTiles();
+    const board = new gameBoard('computer');
     expect(gameBoard.tiles[0][0].isFilled).toBe(false);
     expect(gameBoard.tiles[0][0].ship).toBe(null);
 });
 
-// test('places proper amount of ships on tiles', () => {
-//     const boardFill = gameBoard.createTiles();
-//     boardFill.populate();
-//     let count = 0;
-//     for (let i = 0; i < 10; i++) {
-//         for (let j = 0; j < 10; j++) {
-//             if (boardFill.tiles[i][j].isFilled === true){
-//                 count++
-//             }
-//         }
-//     }
-//     expect(boardFill.ships.length).toBe(10);
-//     expect(count).toBe(30);
-// });
+test('places proper amount of ships on tiles', () => {
+    let boardFill = gameBoard.createTiles();
+    console.log(gameBoard.populate);
+    console.log(boardFill);
+    boardFill.populate();
+    let count = 0;
+    for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+            if (boardFill.tiles[i][j].isFilled === true){
+                count++
+            }
+        }
+    }
+    expect(boardFill.ships.length).toBe(10);
+    expect(count).toBe(30);
+});
 //     // place ships at specific coordinates by calling the ship factory function
 //     // receiveAttack() 
 //     //     - accepts coordinates
