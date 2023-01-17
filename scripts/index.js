@@ -62,7 +62,7 @@ function getCoordinates(user, tiles, ship) { //Relies on user input
         // If user is computer, randomize ship placement
         return getRandomPosition(tiles, ship.length); 
     }
-    return 'To do';
+    return getRandomPosition(tiles, ship.length); 
     // else get position, direction, from user
     // let a = 
     // let b = 
@@ -71,13 +71,6 @@ function getCoordinates(user, tiles, ship) { //Relies on user input
 
 
 // 2. Creates and populates board with ships, and tracks/displays missed attacks
-// receiveAttack() 
-// Attacks on empty tiles should return false
-// Misses should be added to misses property
-// Attacks on occupied tiles should return true
-// Hits should be recorded in ship hit count
-
-
 class GameBoard {
     constructor(user) {
         this.ships = createShips();
@@ -115,6 +108,18 @@ class GameBoard {
     };
 }
 
+//  3. Creates computer/person players and associates them with a game board
+class Player {
+    constructor(user){
+        this.user = user;
+        this.board = new GameBoard(user);
+        this.board2 = null;
+        this.attack = (a, b) => {
+            this.board2.receiveAttack(a, b);
+        }
+    }
+}
 
 
-export {ship, GameBoard};
+
+export {ship, GameBoard, Player};

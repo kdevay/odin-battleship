@@ -1,6 +1,6 @@
-import {ship, GameBoard} from './index.js';
+import {ship, GameBoard, Player} from './index.js';
 
-
+// Ship function testing
 test('initially returns an empty ship object of a certain length', () => {
     expect(ship(2).length).toBe(2);
     expect(ship(2).hitCount).toBe(0);
@@ -19,6 +19,8 @@ test('handles attacks', () => {
     expect(bShip.isSunk()).toBe(false);
 });
 
+
+// Game board factory testing
 test('creates blank 8x8 game board', () => {
     const board = new GameBoard('computer');
     for (let i = 0; i < 10; i++) {
@@ -93,3 +95,40 @@ test('returns true/false if all ships are sunk', () => {
     expect(boardSink.allSunk()).toBe(true);
 });
 
+
+// Player testing
+test('Creates either a computer or person player that can attack another player', () => {
+    // this.user = user;
+    // this.board = new GameBoard(user);
+    // this.board2 = null;
+    // this.attack = (a, b) => {
+    //     this.board2.receiveAttack(a, b);
+    // }
+    let computer = new Player('computer');
+    expect(computer.user).toBe('computer');
+    expect(computer.board).not.toBe(null);
+    expect(computer.board2).toBe(null);
+});
+
+// test('players attack each other', () => {
+//     let person = new Player('person');
+//     let hitSpot = person.board.ships[0].location[0]; // [a, b]
+//     let missSpot;
+//     for (let i = 0; i < 10; i++) {
+//         for (let j = 0; j < 10; j++) {
+//             if (person.board.tiles[i][j].isFilled === false){ 
+//                 missSpot = [i, j];
+//                 break;
+//             }
+//         }
+//         if (missSpot){ break }
+//     }
+//     let computer = new Player('computer');
+//     computer.board2 = person.board;
+//     person.board2 = computer.board;
+//     expect(computer.attack(hitSpot[0], hitSpot[1])).toBe(true);
+//     expect(computer.attack(missSpot[0], missSpot[1])).toBe(false);
+// });
+// Players take turns attacking the enemy game board
+// Randomize moves for computer player
+// It should know whether or not a given move is legal. and shouldn’t shoot the same bad coordinate twice.
