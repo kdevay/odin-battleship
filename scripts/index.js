@@ -106,10 +106,11 @@ class GameBoard {
             return false;
         };
         this.allSunk = () => {
+            let isSunk = true;
             this.ships.forEach(ship => {
-                if (!ship.isSunk()) { return false }
-            })
-            return true;
+                if (!ship.isSunk()) { isSunk = false }
+            });
+            return isSunk;
         };
     };
 }
