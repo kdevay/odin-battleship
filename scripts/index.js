@@ -1,3 +1,5 @@
+const domBoard = document.getElementById('grid');
+
 // 1. Creates ship objects with properties for length, hitCount, hit, and isSunk.
 function ship(length){
     return {
@@ -9,12 +11,19 @@ function ship(length){
     }
 }
 
-function createTiles() {
+function createTiles(user) {
     let tiles = [];
     for (let i = 0; i < 10; i++) {
         let temp = [];
         for (let j = 0; j < 10; j++) {
             temp.push({ isFilled: false, display: null, ship: null });
+            if (user === 'person'){
+                let tile = document.createElement('div');
+                tile.setAttribute('class', 'tile');
+                tile.setAttribute('data-a', i);
+                tile.setAttribute('data-b', j);
+                domBoard.appendChild(tile);
+            }
         }
         tiles.push(temp);
     }
@@ -74,7 +83,7 @@ function getCoordinates(user, tiles, ship) { //Relies on user input
 class GameBoard {
     constructor(user) {
         this.ships = createShips();
-        this.tiles = createTiles();
+        this.tiles = createTiles(user);
         this.misses = [];
         this.user = user;
         this.populate = ship => {
@@ -108,17 +117,32 @@ class GameBoard {
 //  3. Creates computer/person players and associates them with a game board
 class Player {
     constructor(user){
+        this.moveCount = 0;
         this.user = user;
         this.board = new GameBoard(user);
         this.board2 = null;
         this.attack = (a, b) => {
-            console.log('---------------------------------------------')
-            console.log('attack.return: ', this.board2.tiles[a][b])
+            this.moveCount++;
+            let misses = this.board2.misses;
+            for(let i = 0; i < misses.length; i++){
+                for(let j = 0; j < misses.length; j++){
+                    if (misses[i][j] === a && misses[i][j] === b){
+                        return false;
+                    }
+                }
+            }
             return this.board2.receiveAttack(a, b);
         }
     }
 }
 
+function gamePlay() {
+    let person = new Player('person');
+    let computer = new Player('computer');
+    
+} 
 
+const newGame = document.getElementById('newGame');
+newGame.addEventListener('click', gameplay);
 
 export {ship, GameBoard, Player};

@@ -97,13 +97,7 @@ test('returns true/false if all ships are sunk', () => {
 
 
 // Player testing
-test('Creates either a computer or person player that can attack another player', () => {
-    // this.user = user;
-    // this.board = new GameBoard(user);
-    // this.board2 = null;
-    // this.attack = (a, b) => {
-    //     this.board2.receiveAttack(a, b);
-    // }
+test('Creates either a computer or person player', () => {
     let computer = new Player('computer');
     expect(computer.user).toBe('computer');
     expect(computer.board).not.toBe(null);
@@ -134,6 +128,7 @@ test('players attack each other', () => {
 test('randomize computer moves without choosing the same bad coordinate', () => {
     let person = new Player('person');
     person.board.ships.forEach(ship => person.board.populate(ship));
+    let hitSpot = person.board.ships[0].location[0]; // [a, b]
     let missSpot;
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
