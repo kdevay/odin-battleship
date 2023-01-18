@@ -79,7 +79,6 @@ class GameBoard {
         this.user = user;
         this.populate = ship => {
             let coordinates = getCoordinates(user, this.tiles, ship);
-            console.log('get coordinates: ', coordinates);
             coordinates.pos.forEach(pos => {
                 ship.location.push([pos[0],pos[1]]);
                 this.tiles[pos[0]][pos[1]].isFilled = true;
@@ -88,11 +87,9 @@ class GameBoard {
         };
         this.receiveAttack = (a, b)  => {
             let tile = this.tiles[a][b];
-            console.log('tile: ', tile);
             if (tile.isFilled){
-                console.log('tile.ship: ', tile.ship);
                 tile.ship.hit();
-                // check if is sunk
+                // check if is hit
                 return true;
             }
             this.misses.push([a, b]);
@@ -115,7 +112,9 @@ class Player {
         this.board = new GameBoard(user);
         this.board2 = null;
         this.attack = (a, b) => {
-            this.board2.receiveAttack(a, b);
+            console.log('---------------------------------------------')
+            console.log('attack.return: ', this.board2.tiles[a][b])
+            return this.board2.receiveAttack(a, b);
         }
     }
 }

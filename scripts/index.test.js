@@ -110,25 +110,46 @@ test('Creates either a computer or person player that can attack another player'
     expect(computer.board2).toBe(null);
 });
 
-// test('players attack each other', () => {
-//     let person = new Player('person');
-//     let hitSpot = person.board.ships[0].location[0]; // [a, b]
-//     let missSpot;
-//     for (let i = 0; i < 10; i++) {
-//         for (let j = 0; j < 10; j++) {
-//             if (person.board.tiles[i][j].isFilled === false){ 
-//                 missSpot = [i, j];
-//                 break;
-//             }
-//         }
-//         if (missSpot){ break }
-//     }
-//     let computer = new Player('computer');
-//     computer.board2 = person.board;
-//     person.board2 = computer.board;
-//     expect(computer.attack(hitSpot[0], hitSpot[1])).toBe(true);
-//     expect(computer.attack(missSpot[0], missSpot[1])).toBe(false);
-// });
+test('players attack each other', () => {
+    let person = new Player('person');
+    person.board.ships.forEach(ship => person.board.populate(ship));
+    let hitSpot = person.board.ships[0].location[0]; // [a, b]
+    let missSpot;
+    for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+            if (person.board.tiles[i][j].isFilled === false){ 
+                missSpot = [i, j];
+                break;
+            }
+        }
+        if (missSpot){ break }
+    }
+    let computer = new Player('computer');
+    computer.board2 = person.board;
+    person.board2 = computer.board;
+    expect(computer.attack(hitSpot[0], hitSpot[1])).toBe(true);
+    expect(computer.attack(missSpot[0], missSpot[1])).toBe(false);
+});
+
+test('randomize computer moves without choosing the same bad coordinate', () => {
+    let person = new Player('person');
+    person.board.ships.forEach(ship => person.board.populate(ship));
+    let missSpot;
+    for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+            if (person.board.tiles[i][j].isFilled === false){ 
+                missSpot = [i, j];
+                break;
+            }
+        }
+        if (missSpot){ break }
+    }
+    let computer = new Player('computer');
+    computer.board2 = person.board;
+    person.board2 = computer.board;
+    expect(computer.attack(hitSpot[0], hitSpot[1])).toBe(true);
+    expect(computer.attack(missSpot[0], missSpot[1])).toBe(false);
+});
 // Players take turns attacking the enemy game board
 // Randomize moves for computer player
 // It should know whether or not a given move is legal. and shouldn’t shoot the same bad coordinate twice.
