@@ -10,7 +10,6 @@
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
 }
-
 #modal {
     display: none;
     background-color: #bfb9ac;
@@ -20,51 +19,240 @@
     border-radius: 20px;
     width: 80%;
 }
-.tile {
-    background-color: #12a683;
-    border: 1px solid #14b891;
+
+
+
+
+
+
+#content {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
 }
 #main {
+    /* width: 100%; */
+    width: 73vw;
+    height: 100%;
     display: flex;
-    flex-direction: row;
-    background-color: grey;
+    flex-direction:column;
 }
-
+.sidebar {
+    /* display: none; */
+    width: 27vw;
+    height: 100vh;
+    border: 1px solid red;
+}
+.sideTop {
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 #banner {
-    height: 20vh;
+    width: 100%;
+    height: 13vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
     border: 2px solid blue;
 }
 
-#content {
-    height: 80vh;
+.tile {
+    width: 47px;
+    height: 47px;
+    background-color: #12a683;
+    border: 3px solid #14b891;
+}
+
+.e-tile {
+    width: 47px;
+    height: 47px;
+    background-color: #12a683;
+    border: 3px solid #14b891;
+}
+
+
+#boards {
+    height: 87vh;
+    width: 100%;
     display: flex;
     flex-direction: row;
-    height: 20%
+    gap: 50px;
+    padding-top: 20px;
+    justify-content: center;
 }
 
-#newGame {
 
+#shipDivV{
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-#ships {
-    width: 20%;
-    height: 80vh;
-    border: 1px solid blue;
+#shipDivH {
+    /* display: grid; */
+    padding-top: 20px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 85px 160px 150px 140px;
+    justify-items: start;
 }
+
+.div1, .div2, .div3, .div4{
+    display: flex;
+    flex-direction: row;
+}
+
+.div1 {
+    height: 90px;
+}
+.div2 {
+    height: 130px;
+}
+.div3 {
+    height: 200px;
+}
+.div4 {
+    height: 260px;
+}
+
+.div4h{
+    height: 85px;
+}
+.div3h{
+    height: 160px;
+}
+.div2h{
+    height: 150px;
+    margin: 10px 0 10px 10px;
+}
+.div1h{
+    height: 140px;
+    margin: 30px 0 0 14px;
+}
+
+
+
+
 
 #board {
-    width: 70%;
+    width: 80%;
     height: 100%;
     height: 80vh;
 }
 
-#grid {
+#p-grid {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(10, 50px);
+    grid-template-columns: repeat(10, 50px);
+}
 
+#c-grid {
+    /* display: none; */
+    display: grid;
+    grid-template-rows: repeat(10, 50px);
+    grid-template-columns: repeat(10, 50px);
+}
+.v1 { 
+    width: 35px;
+    height: 90px;
+}
+.h1 {
+    height: 35px;
+    width: 90px;
+}
+.v2 {
+    width: 50px;
+    height: 130px;
+}
+.h2 {
+    height: 50px;
+    width: 130px;
+}
+.v3 {
+    width: 80px;
+    height: 200px;
+}
+.h3 {
+    height: 80px;
+    width: 200px;
+}
+.v4 {
+    width: 85px;
+    height: 260px;
+}
+.h4 {
+    height: 85px;
+    width: 260px;
+}
+
+/* 634 / 1269 */
+#smallV2 { 
+    width: 17.1px;
+    height: 34px;
+    margin-left: 23px;
+}
+#smallH2  { /* 592 / 1251 */
+    height: 16.44px;
+    width: 34px;
+}
+
+
+
+
+
+
+
+/* w3 schools slider settings */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color:#2196F3;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
 }

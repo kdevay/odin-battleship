@@ -1,5 +1,12 @@
-const domBoard = document.getElementById('grid');
+const Pboard = document.getElementById('p-grid');
+const Cboard = document.getElementById('c-grid');
+const ShipIcons = Array.from(document.getElementsByClassName('ship'));
 
+const vShips = document.getElementById('shipDivV');
+const hShips = document.getElementById('shipDivH');
+
+let currentShip;
+let Dir = 'horizontal';
 // 1. Creates ship objects with properties for length, hitCount, hit, and isSunk.
 function ship(length){
     return {
@@ -17,12 +24,14 @@ function createTiles(user) {
         let temp = [];
         for (let j = 0; j < 10; j++) {
             temp.push({ isFilled: false, display: null, ship: null });
+            let tile = document.createElement('div');
+                tile.setAttribute('data-loc', i + '-' + j)
             if (user === 'person'){
-                let tile = document.createElement('div');
+                Pboard.appendChild(tile);
                 tile.setAttribute('class', 'tile');
-                tile.setAttribute('data-a', i);
-                tile.setAttribute('data-b', j);
-                domBoard.appendChild(tile);
+            } else {
+                Cboard.appendChild(tile);
+                tile.setAttribute('class', 'e-tile');
             }
         }
         tiles.push(temp);
@@ -30,7 +39,7 @@ function createTiles(user) {
     return tiles;
 }
 
-function createShips() {
+function createShips() { 
     let lengths = [5, 4, 4, 3, 3, 3, 2, 2, 2, 2];
     let ships = [];
     lengths.forEach(length => ships.push(ship(length)))
@@ -120,7 +129,7 @@ class Player {
         this.moveCount = 0;
         this.user = user;
         this.board = new GameBoard(user);
-        this.board2 = null;
+        this.board2 = null; // delete me
         this.attack = (a, b) => {
             this.moveCount++;
             let misses = this.board2.misses;
@@ -135,14 +144,80 @@ class Player {
         }
     }
 }
+//Checkbox
+vShips.style.display = 'flex';
+hShips.style.display = 'none';
+Pboard.style.display = 'none';
+Cboard.style.display = 'none';
 
-function gamePlay() {
-    let person = new Player('person');
-    let computer = new Player('computer');
-    
-} 
+function getDirection(e){
+    var isChecked = e.target.checked;
+    if(!isChecked) {
+        vShips.style.display = 'flex';
+        hShips.style.display = 'none';
+        Dir = 'vertical';	
+    } else {
+        vShips.style.display = 'none';
+        hShips.style.display = 'grid';
+        Dir = 'horizontal';
+    }
+}
+
+function begin() {
+    // reveal sidebar
+    // create person player
+}
+const toggle = document.getElementById('dir');
+toggle.addEventListener('change', getDirection);
 
 const newGame = document.getElementById('newGame');
-newGame.addEventListener('click', gameplay);
+newGame.addEventListener('click', begin);
 
-export {ship, GameBoard, Player};
+function selectImg(icon, index, dir){
+    let icon2;
+    let arrH = ['4hs.png', '3hs.png', '3hs.png', '2hs.png', '2hs.png', '2hs.png', '1hs.png', '1hs.png', '1hs.png', '1hs.png'];
+    let arrV = ['4s.png', '3s.png', '3s.png', '2s.png', '2s.png', '2s.png', '1s.png', '1s.png', '1s.png', '1s.png'];
+    if (dir === 'h'){
+        icon.setAttribute('src', arrH[index]);
+        icon2 = document.getElementById('v' + index + 'v');
+        icon2.setAttribute('src', arrV[index]);
+    } else {
+        icon.setAttribute('src', arrV[index]);
+        icon2 = document.getElementById('h' + index + 'h');
+        icon2.setAttribute('src', arrH[index]);
+    }
+    icon.removeEventListener('click', populating);
+    icon2.removeEventListener('click', populating);
+}
+
+function populating(e){
+    CurrentShip = e.target.getAttribute('data');
+    Dir = CurrentShip[1];
+    CurrentShip = CurrentShip[0];
+    selectImg(e.target, CurrentShip, Dir);
+}
+
+ShipIcons.forEach(ship => {
+    console.log(ship);
+    ship.getAttribute('data');
+    ship.addEventListener('click', populating)
+})
+
+
+// reveal sidebar
+// create person player
+// populate ships
+// if done populating ships
+// hide sidebar
+// change width of #main to 100%
+// create computer player
+// start gameplay
+
+
+
+
+
+
+
+
+// export {ship, GameBoard, Player};

@@ -4,37 +4,85 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="index.js" defer></script> -->
+    <script src="./scripts/index.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="normalize.css">
     <title>BATTLESHIP</title>
 </head>
 <body>
     <div id="modalShadow">
-        <div id="modal"></div>
-    </div>
-    <div id="banner">
-        <h1>Battleship</h1>
-        <button id="newGame">New Game</button>
-    </div>
-    <div id='content'>
-        <div id="ships">
-            <p>big boat</p>
-            <p>medium boat</p>
-            <p>medium boat</p>
-            <p>small boat</p>
-            <p>small boat</p>
-            <p>small boat</p>
-            <p>smallest boat</p>
-            <p>smallest boat</p>
-            <p>smallest boat</p>
-            <p>smallest boat</p>
-        </div>
-        <div id="board">
-            <div id="grid"></div>
+        <div id="modal">
         </div>
     </div>
+    <div id="content">
+        <div class="sidebar">
+            <div class="sideTop">
+                <img id="smallV2" src="1.png">
+                <label class="switch">
+                    <input id="dir" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <img id="smallH2" src="1h.png">
+            </div>
+            
+            <div id="shipDivV"> 
+                <div class="div4">
+                    <img data="0v" id="v0v" class="ship v4" src="4.png">
+                </div>
+                <div class="div3">
+                    <img data="1v" id="v1v" class="ship v3" src="3.png">
+                    <img data="2v" id="v2v" class="ship v3" src="3.png">
+                </div>
+                <div class="div2">
+                    <img data="3v" id="v3v" class="ship v2" src="2.png">
+                    <img data="4v" id="v4v" class="ship v2" src="2.png">
+                    <img data="5v" id="v5v" class="ship v2" src="2.png">
+                </div>
+                <div class="div1">
+                    <img data="6v" id="v6v" class="ship v1" src="1.png">
+                    <img data="7v" id="v7v" class="ship v1" src="1.png">
+                    <img data="8v" id="v8v" class="ship v1" src="1.png">
+                    <img data="9v" id="v9v" class="ship v1" src="1.png">
+                </div>
+            </div>
+            <div id="shipDivH">
+                <div class="div4h">
+                    <img data="0h" id="h0h" class="ship h4" src="4h.png">
+                </div>
+                <div class="div3h">
+                    <img data="1h" id="h1h" class="ship h3" src="3h.png">
+                    <img data="2h" id="h2h" class="ship h3" src="3h.png">
+                </div>
+                <div class="div2h">
+                    <img data="3h" id="h3h" class="ship h2" src="2h.png"><br>
+                    <img data="4h" id="h4h" class="ship h2" src="2h.png"><br>
+                    <img data="5h" id="h5h" class="ship h2" src="2h.png"><br>
+                </div>
+                <div class="div1h">
+                    <img data="6h" id="h6h" class="ship h1" src="1h.png"><br>
+                    <img data="7h" id="h7h" class="ship h1" src="1h.png"><br>
+                    <img data="8h" id="h8h" class="ship h1" src="1h.png"><br>
+                    <img data="9h" id="h9h" class="ship h1" src="1h.png"><br>
+                </div>
+            </div>
+        </div>
     
-    
+        <div id="main">
+            <div id="banner">
+                <h1>Battleship</h1>
+                <button id="newGame">New Game</button>
+            </div>
+            <div>
+                <h2>Step 1: Place ships on the board</h2>
+            </div>
+            <div id='boards'>
+                    <div id="p-grid">
+                    </div>
+                    <div id="c-grid">
+                    </div>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>
